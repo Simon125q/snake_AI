@@ -6,6 +6,7 @@ from settings import *
 class Snake:
     def __init__(self):
         self.body = [Vector2(5, 10), Vector2(4, 10), Vector2(3, 10)]
+        self.head = self.body[0]
         self.direction = [1, 0]
 
     def draw_snake(self, screen):
@@ -38,12 +39,15 @@ class Snake:
         else:
             return False
 
-    def check_collision(self):
+    def check_collision(self, pt = None):
+        if pt == None:
+            pt = self.body[0]
         for part in self.body[1:]:
-            if self.body[0] == part:
+            if pt == part:
+                print('here')
                 return True
-        if self.body[0][0] < 0 or self.body[0][1] < 0 or \
-                self.body[0][0] > COLUMNS - 1 or self.body[0][1] > ROWS - 1:
+        if pt.x < 0 or pt.y < 0 or pt.x > COLUMNS - 1 or pt.y > ROWS - 1:
+            print("no, here")
             return True
         return False
                   

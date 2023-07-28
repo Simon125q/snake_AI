@@ -1,4 +1,5 @@
 import pygame
+from collections import namedtuple
 
 pygame.init()
 
@@ -22,6 +23,19 @@ RIGHT = [1, 0]
 LEFT = [-1, 0]
 UP = [0, -1]
 DOWN = [0, 1]
+
+# actions
+STRAIGHT = [1, 0, 0]
+RIGHT_TURN = [0, 1, 0]
+LEFT_TURN = [0, 0 ,1]
+
+# agent settings
+MAX_MEMORY = 100_000
+BATCH_SIZE = 1000
+LEARNING_RATE = 0.001
+
+# point
+Point = namedtuple('point', 'x, y')
 
 # apple sprites
 APPLE_RED = pygame.image.load('./graphics/apple_red.png').convert_alpha()
