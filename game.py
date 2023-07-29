@@ -8,7 +8,7 @@ class GameAI:
     def __init__(self):
         self.clock = pygame.time.Clock()
         self.pause = False
-        self.move_cooldown = 100
+        self.move_cooldown = 2
         self.reset()
        
     def reset(self):
@@ -44,7 +44,9 @@ class GameAI:
             self.can_move = False
             self.move_time = pygame.time.get_ticks()
         self.display_points()
-        if self.snake.check_collision() or self.frame_iteration > 100 * len(self.snake.body):
+        if self.snake.check_collision() or self.frame_iteration > 250 * len(self.snake.body):
+            if self.frame_iteration > 1000 * len(self.snake.body):
+                print('Starvation')
             self.reward = -10
             self.game_over = True
 
@@ -68,6 +70,14 @@ class GameAI:
                         self.snake.direction = DOWN
                 elif event.key == pygame.K_ESCAPE:
                     self.pause = not self.pause
+                elif event.key == pygame.K_CAPSLOCK:
+                    self.move_cooldown += 1
+                    if self.move_cooldown > 100:
+                        self.move_cooldown = 100
+                elif event.key == pygame.K_LSHIFT:
+                    self.move_cooldown -= 1
+                    if self.move_cooldown < 1:
+                        self.move_cooldown = 1
         
     def step(self, action):
         
@@ -103,15 +113,16 @@ class GameAI:
         msg_box.topright = (COLUMNS * CELL_SIZE - 10, 10)
         screen.blit(msg, msg_box)
         
-    def run(self):
-        while True:
-            self.check_events()
-            self.cooldown()
-            self.update()
-            if not self.pause:
-                self.draw()
-            if self.game_over:
-                print(self.reward, self.game_over, self.points)     
+    def run(self, action):
+        # while True:
+        self.step(action)
+        self.check_events()
+        self.cooldown()
+        self.update()
+        if not self.pause:
+            self.draw()
+        
+        return self.reward, self.game_over, self.points     
                 
 if __name__ == "__main__":
     game = GameAI()

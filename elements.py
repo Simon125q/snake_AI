@@ -44,10 +44,12 @@ class Snake:
             pt = self.body[0]
         for part in self.body[1:]:
             if pt == part:
-                print('here')
+                if pt == self.body[0]:
+                    print('eat itself')
                 return True
         if pt.x < 0 or pt.y < 0 or pt.x > COLUMNS - 1 or pt.y > ROWS - 1:
-            print("no, here")
+            if pt == self.body[0]:
+                print('UPS, wall')
             return True
         return False
                   
