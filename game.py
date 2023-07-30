@@ -3,16 +3,14 @@ import sys
 import numpy as np
 from settings import *
 from elements import *
+from debug import debug
+
 
 class GameAI:
     def __init__(self):
         self.clock = pygame.time.Clock()
         self.pause = False
-<<<<<<< Updated upstream
-        self.move_cooldown = 1
-=======
         self.move_cooldown = 2
->>>>>>> Stashed changes
         self.reset()
        
     def reset(self):
@@ -36,8 +34,7 @@ class GameAI:
             self.can_move = True
         
     def draw(self):
-        screen.fill(GREEN)
-        self.draw_grass()
+        
         self.apple.draw_apple(screen, self.points)
         curr_points = self.points
         self.points = self.snake.move_snake(screen, self.apple, self.points, self.can_move)
@@ -48,10 +45,10 @@ class GameAI:
             self.can_move = False
             self.move_time = pygame.time.get_ticks()
         self.display_points()
-        if self.snake.check_collision() or self.frame_iteration > 130 * len(self.snake.body):
-            if self.frame_iteration > 130 * len(self.snake.body):
-                print('Starvation')
+        if self.snake.check_collision() or self.frame_iteration > 100 * len(self.snake.body):
             self.reward = -10
+            if self.frame_iteration > 100 * len(self.snake.body):
+                print('Starvation')
             self.game_over = True
 
     def check_events(self):
@@ -80,11 +77,11 @@ class GameAI:
                         self.move_cooldown = 100
                 elif event.key == pygame.K_LSHIFT:
                     self.move_cooldown -= 1
-                    if self.move_cooldown < 0:
-                        self.move_cooldown = 0
+                    if self.move_cooldown < 1:
+                        self.move_cooldown = 1
         
     def step(self, action):
-        
+        debug(action)
         clock_wise = [RIGHT, DOWN, LEFT, UP]
         index = clock_wise.index(self.snake.direction)
         
@@ -118,22 +115,15 @@ class GameAI:
         screen.blit(msg, msg_box)
         
     def run(self, action):
-<<<<<<< Updated upstream
-        # while True:
-=======
         self.reward = 0
         self.check_events()
         screen.fill(GREEN)
         self.draw_grass()
->>>>>>> Stashed changes
         self.step(action)
         self.cooldown()
-<<<<<<< Updated upstream
-        self.update()
-=======
->>>>>>> Stashed changes
         if not self.pause:
             self.draw()
+        self.update()
         
         return self.reward, self.game_over, self.points     
                 

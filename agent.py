@@ -11,7 +11,7 @@ class Agent:
     def __init__(self):
         self.num_of_games = 0
         self.epsilon = 0 # randomness
-        self.gamma = 0.9 # discount rate
+        self.gamma = 0.8 # discount rate
         self.memory = deque(maxlen = MAX_MEMORY)
         self.model = Linear_QNet(11, 256, 3)
         self.trainer = QTrainer(self.model, learning_rate = LEARNING_RATE, gamma = self.gamma)
@@ -89,7 +89,7 @@ class Agent:
         self.trainer.train_step(state, action, reward, next_state, game_over)
     
     def get_action(self, state):
-        self.epsilon = 80 - self.num_of_games // 2
+        self.epsilon = 80 - self.num_of_games
         final_move = [0, 0, 0]
         if random.randint(0, 200) < self.epsilon:
             move = random.randint(0, 2)
@@ -114,7 +114,7 @@ def train():
         state_old = agent.get_state(game)
         
         final_move = agent.get_action(state_old)
-        
+        print(final_move)
         reward, game_over, score = game.run(final_move)
         state_new = agent.get_state(game)
         

@@ -8,7 +8,8 @@ CELL_SIZE = 40
 ROWS = 22
 COLUMNS = 30
 WINDOW_SIZE = WIDTH, HEIGHT = (COLUMNS * CELL_SIZE, ROWS * CELL_SIZE)
-FPS = 100
+FPS = 260
+
 
 screen = pygame.display.set_mode(WINDOW_SIZE)
 
@@ -33,7 +34,7 @@ LEFT_TURN = [0, 0 ,1]
 # agent settings
 MAX_MEMORY = 100_000
 BATCH_SIZE = 1000
-LEARNING_RATE = 0.001
+LEARNING_RATE = 0.003
 
 # point
 Point = namedtuple('point', 'x, y')
