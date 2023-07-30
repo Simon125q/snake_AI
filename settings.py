@@ -8,7 +8,7 @@ CELL_SIZE = 40
 ROWS = 22
 COLUMNS = 30
 WINDOW_SIZE = WIDTH, HEIGHT = (COLUMNS * CELL_SIZE, ROWS * CELL_SIZE)
-FPS = 60
+FPS = 100
 
 screen = pygame.display.set_mode(WINDOW_SIZE)
 
@@ -16,7 +16,8 @@ screen = pygame.display.set_mode(WINDOW_SIZE)
 GREEN = (175, 215, 70)
 DARK_GREEN = (185, 225, 80)
 RED = (255, 0, 0)
-BLUE = (10, 10, 200)
+BLUE = '#0021f3'
+DARK_BLUE = '#05014a'
 
 # movement directions
 RIGHT = [1, 0]

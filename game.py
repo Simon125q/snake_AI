@@ -8,7 +8,11 @@ class GameAI:
     def __init__(self):
         self.clock = pygame.time.Clock()
         self.pause = False
+<<<<<<< Updated upstream
         self.move_cooldown = 1
+=======
+        self.move_cooldown = 2
+>>>>>>> Stashed changes
         self.reset()
        
     def reset(self):
@@ -114,16 +118,22 @@ class GameAI:
         screen.blit(msg, msg_box)
         
     def run(self, action):
+<<<<<<< Updated upstream
         # while True:
-        self.step(action)
+=======
+        self.reward = 0
         self.check_events()
+        screen.fill(GREEN)
+        self.draw_grass()
+>>>>>>> Stashed changes
+        self.step(action)
         self.cooldown()
+<<<<<<< Updated upstream
         self.update()
+=======
+>>>>>>> Stashed changes
         if not self.pause:
             self.draw()
         
         return self.reward, self.game_over, self.points     
                 
-if __name__ == "__main__":
-    game = GameAI()
-    game.run()     

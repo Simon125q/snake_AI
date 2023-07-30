@@ -10,7 +10,11 @@ class Snake:
         self.direction = [1, 0]
 
     def draw_snake(self, screen):
-        for part in self.body:
+        x = self.body[0].x * CELL_SIZE
+        y = self.body[0].y * CELL_SIZE
+        head_rect = pygame.Rect(x, y, CELL_SIZE, CELL_SIZE)
+        pygame.draw.rect(screen, DARK_BLUE, head_rect)
+        for part in self.body[1:]:
             x = part.x * CELL_SIZE
             y = part.y * CELL_SIZE
             part_rect = pygame.Rect(x, y, CELL_SIZE, CELL_SIZE)
@@ -42,11 +46,10 @@ class Snake:
     def check_collision(self, pt = None):
         if pt == None:
             pt = self.body[0]
-        for part in self.body[1:]:
-            if pt == part:
-                if pt == self.body[0]:
-                    print('eat itself')
-                return True
+        if pt in self.body[1:]:    
+            if pt == self.body[0]:
+                print('eat itself')
+            return True
         if pt.x < 0 or pt.y < 0 or pt.x > COLUMNS - 1 or pt.y > ROWS - 1:
             if pt == self.body[0]:
                 print('UPS, wall')

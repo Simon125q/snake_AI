@@ -18,10 +18,15 @@ class Agent:
     
     def get_state(self, game):
         head = game.snake.body[0]
-        point_left = Point(head.x - CELL_SIZE, head.y)
-        point_right = Point(head.x + CELL_SIZE, head.y)
-        point_up = Point(head.x, head.y - CELL_SIZE)
-        point_down = Point(head.x, head.y + CELL_SIZE)
+        point_left = Point(head.x - 1, head.y)
+        point_right = Point(head.x + 1, head.y)
+        point_up = Point(head.x, head.y - 1)
+        point_down = Point(head.x, head.y + 1)
+        
+        # point2_left = Point(head.x - 2, head.y)
+        # point2_right = Point(head.x + 2, head.y)
+        # point2_up = Point(head.x, head.y - 2)
+        # point2_down = Point(head.x, head.y + 2)
         
         dir_left = game.snake.direction == LEFT
         dir_right = game.snake.direction == RIGHT
@@ -46,6 +51,12 @@ class Agent:
             (dir_up and game.snake.check_collision(point_left)) or 
             (dir_right and game.snake.check_collision(point_up)) or 
             (dir_left and game.snake.check_collision(point_down)),
+            
+            # # Danger ahead
+            # (dir_right and game.snake.check_collision(point2_right)) or 
+            # (dir_left and game.snake.check_collision(point2_left)) or 
+            # (dir_up and game.snake.check_collision(point2_up)) or 
+            # (dir_down and game.snake.check_collision(point2_down)),
             
             # Move direction
             dir_left,
