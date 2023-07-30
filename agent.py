@@ -6,6 +6,7 @@ from game import GameAI
 from model import QTrainer, Linear_QNet
 from helper import plot
 from settings import *
+from debug import debug
 
 class Agent:
     def __init__(self):
@@ -78,7 +79,7 @@ class Agent:
         self.trainer.train_step(state, action, reward, next_state, game_over)
     
     def get_action(self, state):
-        self.epsilon = 280 - self.num_of_games
+        self.epsilon = 80 - self.num_of_games
         final_move = [0, 0, 0]
         if random.randint(0, 200) < self.epsilon:
             move = random.randint(0, 2)
@@ -103,7 +104,7 @@ def train():
         state_old = agent.get_state(game)
         
         final_move = agent.get_action(state_old)
-        
+        debug(final_move, y = 40)
         reward, game_over, score = game.run(final_move)
         state_new = agent.get_state(game)
         
